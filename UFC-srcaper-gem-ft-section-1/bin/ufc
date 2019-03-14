@@ -1,5 +1,0 @@
-#!/usr/local/bin/ruby
-
-require_relative "../lib/ufc.rb"
-
-CLI.new.run
