@@ -16,39 +16,49 @@ class Scraper
 
   def self.get_fighter_stats(fighter)
     url = fighter.link
-    doc = Nokogiri::HTML(open(url))
+    docu = Nokogiri::HTML(open(url))
     ################################################################################################
-    fighter.nickname = doc.css(".field.field-name-nickname").text.gsub("\n","").strip.gsub("\"", "")
+    fighter.nickname = docu.css(".field.field-name-nickname").text.gsub("\n","").strip.gsub("\"", "")
                                     #STATS AND WIN STREAK
-    fighter.win_streak = doc.css(".l-listing__group")[0].css(".l-listing__item")[0].text.gsub("\n","").strip
+                                    # binding.pry
+    fighter.win_streak = docu.css(".l-listing__group")[0].css(".l-listing__item")[0].text.gsub("\n","").squeeze(" ").strip
 
-    fighter.title_defenses = doc.css(".l-listing__group")[0].css(".l-listing__item")[2].text.gsub("\n","").strip
+    fighter.title_defenses = docu.css(".l-listing__group")[0].css(".l-listing__item")[2].text.gsub("\n","").squeeze(" ").strip
 
-    fighter.ko_wins = doc.css(".l-listing__group")[0].css(".l-listing__item")[1].text.gsub("\n","").strip
+    fighter.ko_wins = docu.css(".l-listing__group")[0].css(".l-listing__item")[1].text.gsub("\n","").squeeze(" ").strip
 
     ##################################################################################################
                                       #STRIKING ACCURACY
-    fighter.s_percent =  doc.css(".e-chart-circle__percent")[0].text
+    fighter.s_percent =  docu.css(".e-chart-circle__percent")[0].text
 
-    fighter.s_accuracy = doc.css(".c-overlap--stats__title")[0].text.gsub("\n","").strip
+    fighter.s_accuracy = docu.css(".c-overlap--stats__title")[0].text.gsub("\n","").strip
 
-    fighter.s_landed = doc.css(".c-overlap__stats-text")[0].text.gsub("\n","").strip
-    fighter.s_landed_num = doc.css(".c-overlap__stats-value")[0].text
+    fighter.s_landed = docu.css(".c-overlap__stats-text")[0].text.gsub("\n","").strip
+    fighter.s_landed_num = docu.css(".c-overlap__stats-value")[0].text
 
-    fighter.s_attemted = doc.css(".c-overlap__stats-text")[1].text.gsub("\n","").strip
-    fighter.s_attemted_num = doc.css(".c-overlap__stats-value")[1].text
+    fighter.s_attemted = docu.css(".c-overlap__stats-text")[1].text.gsub("\n","").strip
+    fighter.s_attemted_num = docu.css(".c-overlap__stats-value")[1].text
     #########################################################################################
                                     #GRAPPLING ACCURACY
-    fighter.g_percent = doc.css(".e-chart-circle__percent")[1].text
+    fighter.g_percent = docu.css(".e-chart-circle__percent")[1].text
 
-    fighter.g_accuracy = doc.css(".c-overlap--stats__title")[1].text.gsub("\n","").strip
+    fighter.g_accuracy = docu.css(".c-overlap--stats__title")[1].text.gsub("\n","").strip
 
 
-    fighter.t_landed = doc.css(".c-overlap__stats-text")[2].text.gsub("\n","").strip
-    fighter.t_landed_num = doc.css(".c-overlap__stats-value")[2].text
+    fighter.t_landed = docu.css(".c-overlap__stats-text")[2].text.gsub("\n","").strip
+    fighter.t_landed_num = docu.css(".c-overlap__stats-value")[2].text
 
-    fighter.t_attemted = doc.css(".c-overlap__stats-text")[3].text.gsub("\n","").strip
-    fighter.t_attemted_num = doc.css(".c-overlap__stats-value")[3].text
+    fighter.t_attemted = docu.css(".c-overlap__stats-text")[3].text.gsub("\n","").strip
+    fighter.t_attemted_num = docu.css(".c-overlap__stats-value")[3].text
     ###########################################################################################
+
+    # nick = docu.css(".field.field-name-nickname").text.gsub("\n","").strip.gsub("\"", "")
+    # docu.css(".field.field-name-nickname").text
+    # binding.pry
+    # nick.select { |string| string.include?("#{fighter.nickname}")}
+    #   if(nick.first != nil)
+    #     fighter.nickname = nick.first.strip
+    #   end
+
   end
 end

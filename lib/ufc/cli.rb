@@ -9,6 +9,7 @@ class CLI
   def welcome
     puts "It's Tiiiiiiiiimmmmmmmmmmeeeeeee!!!!!!!!!!!!"
     puts "***********************************************************************************************"
+    puts "\n"
   end
 
   def get_fighters
@@ -24,15 +25,16 @@ class CLI
   end
 
   def main_page
-    puts "#############################"
     puts "Enter a fighters number to see their stats:"
     puts "#############################"
     all_fighters
 
     input = gets.chomp
-    fighter = Fighter.all[input.to_i-1]
-
-
+    if input == "0"
+      fighter = nil
+    else
+      fighter = Fighter.all[input.to_i-1]
+    end
     if fighter == nil
       # puts "#############################"
       puts "Enter an existing fighter number!"
@@ -46,9 +48,15 @@ class CLI
   end
 
   def show_stats(fighter)
+    # binding.pry
     puts "#############################"
+    if fighter.nickname == ""
+    puts "You Have Selected #{fighter.name}!!"
+    puts "Your Fighter Has No Nickname"
+    else
     puts "You Have Selected #{fighter.name}!!"
     puts "Your Fighters Nickname Is: " +  fighter.nickname.upcase + "!!!!!!!!!!"
+    end
     puts "Fight Stats:"
     puts fighter.win_streak
     puts fighter.title_defenses
