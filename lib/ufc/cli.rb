@@ -1,6 +1,7 @@
 class CLI
 
   def run
+    #what is self = one instance of CLI
     welcome
     get_fighters
     main_page
@@ -29,12 +30,14 @@ class CLI
     puts "#############################"
     all_fighters
 
-    input = gets.chomp
-    if input == "0"
-      fighter = nil
+    input = gets.chomp.to_i
+
+    if input != 0
+      fighter = Fighter.all[input-1]
     else
-      fighter = Fighter.all[input.to_i-1]
+      fighter = nil
     end
+
     if fighter == nil
       # puts "#############################"
       puts "Enter an existing fighter number!"

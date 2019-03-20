@@ -15,6 +15,7 @@ class Scraper
   end
 
   def self.get_fighter_stats(fighter)
+    binding.pry
     url = fighter.link
     docu = Nokogiri::HTML(open(url))
     ################################################################################################
@@ -26,6 +27,7 @@ class Scraper
     fighter.title_defenses = docu.css(".l-listing__group")[0].css(".l-listing__item")[2].text.gsub("\n","").squeeze(" ").strip
 
     fighter.ko_wins = docu.css(".l-listing__group")[0].css(".l-listing__item")[1].text.gsub("\n","").squeeze(" ").strip
+    binding.pry
 
     ##################################################################################################
                                       #STRIKING ACCURACY

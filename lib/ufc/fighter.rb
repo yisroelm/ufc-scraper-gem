@@ -16,4 +16,12 @@ class Fighter
     @@all
   end
 
+  def self.over_wins(num_wins)
+    fighters = Fighter.all
+
+    wins = fighters.select do |fighter|
+      fighter.ko_wins.to_i > num_wins
+    end
+  end
+
 end
