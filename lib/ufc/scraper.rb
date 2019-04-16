@@ -15,19 +15,42 @@ class Scraper
   end
 
   def self.get_fighter_stats(fighter)
-    binding.pry
+    # binding.pry
     url = fighter.link
     docu = Nokogiri::HTML(open(url))
     ################################################################################################
     fighter.nickname = docu.css(".field.field-name-nickname").text.gsub("\n","").strip.gsub("\"", "")
                                     #STATS AND WIN STREAK
                                     # binding.pry
-    fighter.win_streak = docu.css(".l-listing__group")[0].css(".l-listing__item")[0].text.gsub("\n","").squeeze(" ").strip
+    # binding.pry
+    record_collection = docu.css(".c-record__promoted")
 
-    fighter.title_defenses = docu.css(".l-listing__group")[0].css(".l-listing__item")[2].text.gsub("\n","").squeeze(" ").strip
+    record_collection.each do |fighter_atts|
+      attribute_text = fighter_atts.css(".c-record__promoted-text").text
+      attribute_value = fighter_atts.css(".c-record__promoted-figure").text
+      if attribute_text == "Fight Win Streak"
+        # binding.pry
+        fighter.win_streak = attribute_value
+      elsif attribute_text == "Wins by Knockout"
+        fighter.ko_wins = attribute_value
+      elsif attribute_text == "Title Defenses"
+        fighter.title_defenses = attribute_value
+      elsif attribute_text == "Wins by Submission"
+        fighter.sub_wins = attribute_value
+      elsif attribute_text == "First Round Finishes"
+        fighter.fr_finishes = attribute_value
+      elsif attribute_text == "Wins by Decision"
+        fighter.dec_wins = attribute_value
+      end
+    end
 
-    fighter.ko_wins = docu.css(".l-listing__group")[0].css(".l-listing__item")[1].text.gsub("\n","").squeeze(" ").strip
-    binding.pry
+
+    # fighter.win_streak = docu.css(".l-listing__group")[0].css(".l-listing__item")[0].text.gsub("\n","").squeeze(" ").strip
+    #
+    # fighter.title_defenses = docu.css(".l-listing__group")[0].css(".l-listing__item")[2].text.gsub("\n","").squeeze(" ").strip
+    #
+    # fighter.ko_wins = docu.css(".l-listing__group")[0].css(".l-listing__item")[1].text.gsub("\n","").squeeze(" ").strip
+    # binding.pry
 
     ##################################################################################################
                                       #STRIKING ACCURACY

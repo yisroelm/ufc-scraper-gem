@@ -10,7 +10,7 @@ class CLI
   def welcome
     puts "It's Tiiiiiiiiimmmmmmmmmmeeeeeee!!!!!!!!!!!!"
     puts "***********************************************************************************************"
-    puts "\n"
+    puts ""
   end
 
   def get_fighters
@@ -52,30 +52,36 @@ class CLI
 
   def show_stats(fighter)
     # binding.pry
-    puts "#############################"
+      puts "#############################"
     if fighter.nickname == ""
-    puts "You Have Selected #{fighter.name}!!"
-    puts "Your Fighter Has No Nickname"
+      puts "You Have Selected #{fighter.name}!!"
+      puts "Your Fighter Has No Nickname"
     else
-    puts "You Have Selected #{fighter.name}!!"
-    puts "Your Fighters Nickname Is: " +  fighter.nickname.upcase + "!!!!!!!!!!"
+      puts "You Have Selected #{fighter.name}!!"
+      puts "Your Fighters Nickname Is: " +  fighter.nickname.upcase + "!!!!!!!!!!"
     end
-    puts "Fight Stats:"
-    puts fighter.win_streak
-    puts fighter.title_defenses
-    puts fighter.ko_wins
-    puts fighter.s_accuracy.upcase + ":"
-    puts fighter.s_percent
-    puts fighter.s_landed.upcase + ":"
-    puts fighter.s_landed_num
-    puts fighter.s_attemted.upcase + ":"
-    puts fighter.s_attemted_num
-    puts fighter.g_accuracy.upcase + ":"
-    puts fighter.g_percent
-    puts fighter.t_landed.upcase + ":"
-    puts fighter.t_landed_num
-    puts fighter.t_attemted.upcase + ":"
-    puts fighter.t_attemted_num
+      puts "Fight Stats:"
+      # puts fighter.record_collection
+      puts fighter.win_streak + " Fight Win Streak" if fighter.win_streak
+      puts fighter.title_defenses + " Title Defenses" if fighter.title_defenses
+      puts fighter.sub_wins + " Wins by Submission" if  fighter.sub_wins
+      puts fighter.fr_finishes + " First Round Finishes" if fighter.fr_finishes
+      puts fighter.dec_wins + " Wins by Decision" if fighter.dec_wins
+      puts fighter.ko_wins + " Wins by Knockout" if fighter.ko_wins
+      puts fighter.s_accuracy.upcase + ":"
+      puts fighter.s_percent
+      puts fighter.s_landed.upcase + ":"
+      puts fighter.s_landed_num
+      puts fighter.s_attemted.upcase + ":"
+      puts fighter.s_attemted_num
+      puts fighter.g_accuracy.upcase + ":"
+      puts fighter.g_percent
+      puts fighter.t_landed.upcase + ":"
+      puts fighter.t_landed_num
+      puts fighter.t_attemted.upcase + ":"
+      puts fighter.t_attemted_num
+      # binding.pry
+
 
     anything_else?
   end
@@ -89,6 +95,7 @@ class CLI
     if input == 'Y'
       main_page
     elsif input == 'N'
+      binding.pry
       puts "Goodbye!"
     else
       puts "*********************************"
