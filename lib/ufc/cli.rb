@@ -95,7 +95,7 @@ class CLI
     if input == 'Y'
       main_page
     elsif input == 'N'
-      binding.pry
+      # binding.pry
       puts "Goodbye!"
     else
       puts "*********************************"

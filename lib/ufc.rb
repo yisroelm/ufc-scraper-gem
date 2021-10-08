@@ -1,7 +1,7 @@
 require_relative "ufc/version"
 require "open-uri"
 require "nokogiri"
-require "pry"
+# require "pry"
 require "openssl"
 
 module Ufc

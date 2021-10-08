@@ -1,9 +1,9 @@
 class Scraper
 
-  URL = "https://www.ufc.com/rankings?rankings_panelist=1082"
+  URL = URI.open("https://www.ufc.com/rankings?rankings_panelist=1082")
 
   def self.get_fighters
-    doc = Nokogiri::HTML(open(URL))
+    doc = Nokogiri::HTML(URI.open(URL))
     fighters = doc.css(".view-grouping-content")[0].css(".views-row")
 
     fighters.each do |fighter|
@@ -17,7 +17,7 @@ class Scraper
   def self.get_fighter_stats(fighter)
     # binding.pry
     url = fighter.link
-    docu = Nokogiri::HTML(open(url))
+    docu = Nokogiri::HTML(URI.open(url))
     ################################################################################################
     fighter.nickname = docu.css(".field.field-name-nickname").text.gsub("\n","").strip.gsub("\"", "")
                                     #STATS AND WIN STREAK
