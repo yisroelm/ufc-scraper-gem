@@ -1,1 +1,1 @@
-# Run $ruby bin/ufc to execute app 
+Run `ruby bin/ufc` to execute app 
